@@ -8,7 +8,6 @@ name character varying(200),
 status character varying(1),
 social_media character varying(250),
 token character varying(1024),
-status character varying(1),
 password character varying(1024),
 virtual_id character varying(1024),
 constraint pk_uploader_id primary key(id)
@@ -113,7 +112,7 @@ partner_formula_id bigint not null,
 constraint pk_transactions_id primary key(id),
 constraint fk_transactions_product_id foreign key(product_id) references product(id),
 constraint fk_transactions_uploader_id foreign key(uploader_id) references uploader(id),
-constraint fk_transactions_partner_formula_id foreign key(partner_formula_id) references partner_formula(id),
+constraint fk_transactions_partner_formula_id foreign key(partner_formula_id) references partner_formula(id)
 );
 
 
