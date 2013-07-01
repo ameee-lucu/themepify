@@ -69,7 +69,10 @@
 
     -->
     
-        <target name="-post-dist">
+<!--        <target name="-post-dist">
        <copy todir="C:\jboss-5.1.0.GA\server\default\deploy" file="dist/Themepify.war"/>
+    </target>-->
+    <target name="-post-dist">
+        <copy todir="/Users/faisalhadi/jboss-5.1.0.GA/server/all/deploy/" file="dist/Themepify.war"/>
     </target>
 </project>
