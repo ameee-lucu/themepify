@@ -70,8 +70,6 @@ public class Product implements Serializable {
     private List<ProductLog> productLogList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private List<Transactions> transactionsList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
-    private List<Tag> tagList;
 
     public Product() {
     }
@@ -169,15 +167,6 @@ public class Product implements Serializable {
 
     public void setTransactionsList(List<Transactions> transactionsList) {
         this.transactionsList = transactionsList;
-    }
-
-    @XmlTransient
-    public List<Tag> getTagList() {
-        return tagList;
-    }
-
-    public void setTagList(List<Tag> tagList) {
-        this.tagList = tagList;
     }
 
     @Override
