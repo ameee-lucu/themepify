@@ -18,8 +18,8 @@ import org.springframework.web.portlet.ModelAndView;
 @Controller
 public class IndexController {
 
-    @Autowired
-    QueryHelper queryhelper;
+//    @Autowired
+//    QueryHelper queryhelper;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ModelAndView IndexController() {
