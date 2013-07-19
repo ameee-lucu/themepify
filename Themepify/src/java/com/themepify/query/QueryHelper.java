@@ -5,8 +5,11 @@
 package com.themepify.query;
 
 import com.themepify.entity.Category;
+import com.themepify.entity.Uploader;
 import java.util.List;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -29,5 +32,16 @@ public class QueryHelper {
         return hibernateTemplate.find("from " + Category.class.getName());
     }
     
+    public Uploader getUploaderbyName(String name){
+        DetachedCriteria criteria = DetachedCriteria.forClass(Uploader.class);
+        criteria.add(Restrictions.eq("name", name));
+        List<Object> result = hibernateTemplate.findByCriteria(criteria);
+        Uploader uploader = (Uploader) (result==null||result.isEmpty()?null:result.get(0));
+        return uploader;
+    }
+    
+    public void saveEntity(Object entity){
+        hibernateTemplate.save(entity);
+    }
     
 }
