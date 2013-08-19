@@ -1,5 +1,7 @@
 package com.themepify.controller;
 
+import com.themepify.entity.Uploader;
+import com.themepify.query.QueryHelper;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,35 +19,38 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class RepositoryBasedUserDetailsService implements UserDetailsService {
 
+    @Autowired
+    QueryHelper queryhelper;
+
     /**
      * Returns a populated {@link UserDetails} object. The username is first
      * retrieved from the database and then mapped to a {@link UserDetails}
      * object.
      */
-    
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        try {
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        try {
 //            org.krams.domain.User domainUser = userRepository.findByUsername(username);
-//
-//            boolean enabled = true;
-//            boolean accountNonExpired = true;
-//            boolean credentialsNonExpired = true;
-//            boolean accountNonLocked = true;
-//
-//            return new User(
-//                    domainUser.getUsername(),
-//                    domainUser.getPassword().toLowerCase(),
-//                    enabled,
-//                    accountNonExpired,
-//                    credentialsNonExpired,
-//                    accountNonLocked,
-//                    getAuthorities(domainUser.getRole().getRole()));
-//
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+            Uploader uploader = queryhelper.getUploaderbyName(username);
+
+            boolean enabled = true;
+            boolean accountNonExpired = true;
+            boolean credentialsNonExpired = true;
+            boolean accountNonLocked = true;
+
+            return new User(
+                    uploader.getName(),
+                    uploader.getPassword().toLowerCase(),
+                    enabled,
+                    accountNonExpired,
+                    credentialsNonExpired,
+                    accountNonLocked,
+                    getAuthorities(1));
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * Retrieves a collection of {@link GrantedAuthority} based on a numerical
@@ -93,7 +98,4 @@ public class RepositoryBasedUserDetailsService implements UserDetailsService {
         return authorities;
     }
 
-    public UserDetails loadUserByUsername(String string) throws UsernameNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
